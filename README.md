@@ -6,7 +6,7 @@
 - cv2 (pypi package)
 - PyTorch 1.3.0 (pypi package)
 - TensorFlow-gpu 1.13.1 (pypi package)
-- Keras (pypi package)
+- Keras 2.2.4 (pypi package)
 - Detectron2 (built from source)
 - VLC (built from source)
 - FFmpeg (built from source with cuda support)
