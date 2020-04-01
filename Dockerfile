@@ -81,13 +81,16 @@ RUN git clone https://git.ffmpeg.org/ffmpeg.git &&\
     cd .. && rm -r ffmpeg
 RUN pip3 install --no-cache-dir ffmpeg-python 
 
-RUN pip3 install --no-cache-dir hikvisionapi==0.2.1 \
+RUN pip3 install --no-cache-dir \
+    numpy==1.15.3 \
+    hikvisionapi==0.2.1 \
     simple-pid \
     GPUtil \
     tqdm \
-    requests
+    requests \
+    protobuf
 
-RUN pip3 install --no-cache-dir numpy==1.15.3 \
+RUN pip3 install --no-cache-dir  \
     scipy==1.0.0 \
     matplotlib \
     Pillow==5.3.0 \
