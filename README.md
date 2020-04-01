@@ -12,5 +12,9 @@
 - FFmpeg (built from source with cuda support)
 - .. and many more (see Dockerfile for details)
 
-## Download first
-- Download TensorRT 7 deb file `nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb` from https://developer.nvidia.com/nvidia-tensorrt-download
+## Pull from dockerhub
+`docker pull levan92/cv-suite:latest`
+
+## Build from Dockerfile
+- Before building, download TensorRT 7 deb file `nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb` from https://developer.nvidia.com/nvidia-tensorrt-download first
+`docker build -t cv-suite .`

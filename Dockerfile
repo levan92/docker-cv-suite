@@ -106,9 +106,18 @@ RUN pip3 install --no-cache-dir \
     tensorflow-gpu==1.13.1   \
     Keras==2.2.4
 
+# INSTALL DETECTRON2
 RUN git clone https://github.com/facebookresearch/detectron2.git
 RUN cd detectron2 && python3 -m pip install -e .
 # RUN rm -r detectron2
+
+# INSTALL PYCOCOTOOLS
+RUN pip3 install --no-cache-dir cython
+RUN git clone https://github.com/pdollar/coco
+RUN cd coco/PythonAPI \
+    && python3 setup.py build_ext install \
+    && cd ../.. \
+    && rm -r coco
 
 # RUN git clone https://github.com/tensorflow/tensorflow.git 
 
