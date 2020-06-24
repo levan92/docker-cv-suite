@@ -41,18 +41,18 @@ RUN apt-get install -y \
     python3-pip
 
 # INSTALL TENSORRT
-ARG TENSORRT=nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb
-# From Tensort installation instructions
-ARG TENSORRT_KEY=/var/nv-tensorrt-repo-cuda10.0-trt7.0.0.11-ga-20191216/7fa2af80.pub
-# custom Tensorrt Installation
-ADD $TENSORRT /tmp
-# Rename the ML repo to something else so apt doesn't see it
-RUN mv /etc/apt/sources.list.d/nvidia-ml.list /etc/apt/sources.list.d/nvidia-ml.list.bkp && \
-    dpkg -i /tmp/$TENSORRT && \
-    apt-key add $TENSORRT_KEY && \
-    apt-get update && \
-    apt-get install -y tensorrt
-RUN apt-get install -y python3-libnvinfer-dev uff-converter-tf
+# ARG TENSORRT=nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb
+# # From Tensort installation instructions
+# ARG TENSORRT_KEY=/var/nv-tensorrt-repo-cuda10.0-trt7.0.0.11-ga-20191216/7fa2af80.pub
+# # custom Tensorrt Installation
+# ADD $TENSORRT /tmp
+# # Rename the ML repo to something else so apt doesn't see it
+# RUN mv /etc/apt/sources.list.d/nvidia-ml.list /etc/apt/sources.list.d/nvidia-ml.list.bkp && \
+#     dpkg -i /tmp/$TENSORRT && \
+#     apt-key add $TENSORRT_KEY && \
+#     apt-get update && \
+#     apt-get install -y tensorrt
+# RUN apt-get install -y python3-libnvinfer-dev uff-converter-tf
 
 # INSTALL BAZEL
 # RUN curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
@@ -85,7 +85,7 @@ RUN pip3 install --no-cache-dir ffmpeg-python
 
 RUN pip3 install --no-cache-dir \
     numpy==1.15.3 \
-    hikvisionapi==0.2.1 \
+    # hikvisionapi==0.2.1 \
     simple-pid \
     GPUtil \
     tqdm \
@@ -99,36 +99,43 @@ RUN pip3 install --no-cache-dir  \
     opencv-python \
     scikit-image
 
-RUN pip3 install --no-cache-dir \
-    torch==1.4.0 \
-    torchvision==0.5.0
-
-RUN pip3 install --no-cache-dir \
-    tensorflow==1.13.1   \
-    tensorflow-gpu==1.13.1   \
-    Keras==2.2.4
-
-RUN pip3 install --no-cache-dir efficientnet
+RUN pip3 install --no-cache-dir python-dotenv
 
 RUN pip3 install --no-cache-dir jupyter
 RUN echo 'alias jup="jupyter notebook --allow-root --no-browser"' >> ~/.bashrc
 
-RUN pip3 install --no-cache-dir tensorboard==1.14
-RUN pip3 install --no-cache-dir python-dotenv
+RUN pip3 install --no-cache-dir \
+    tensorflow==2.2   \
+    tensorflow-gpu==2.2 
+    # Keras==2.2.4
+
+RUN pip3 install --no-cache-dir Keras==2.3.1
+
+RUN pip3 install --no-cache-dir \
+    torch==1.4.0 \
+    torchvision==0.5.0
+
+RUN pip3 install --no-cache-dir scikit-learn==0.23.1 \
+    seaborn==0.10.1 \
+    pandas==1.0.4
+
+# RUN pip3 install --no-cache-dir efficientnet
+
+# RUN pip3 install --no-cache-dir tensorboard==1.14
 
 # DETECTRON2 DEPENDENCY: PYCOCOTOOLS 
-RUN pip3 install --no-cache-dir cython
-RUN git clone https://github.com/pdollar/coco
-RUN cd coco/PythonAPI \
-    && python3 setup.py build_ext install \
-    && cd ../.. \
-    && rm -r coco
+# RUN pip3 install --no-cache-dir cython
+# RUN git clone https://github.com/pdollar/coco
+# RUN cd coco/PythonAPI \
+#     && python3 setup.py build_ext install \
+#     && cd ../.. \
+#     && rm -r coco
 
 # INSTALL DETECTRON2
-RUN git clone https://github.com/facebookresearch/detectron2.git /detectron2
-RUN cd /detectron2 &&\
-    git checkout 185c27e4b4d2d4c68b5627b3765420c6d7f5a659 &&\
-    python3 -m pip install -e .
+# RUN git clone https://github.com/facebookresearch/detectron2.git /detectron2
+# RUN cd /detectron2 &&\
+#     git checkout 185c27e4b4d2d4c68b5627b3765420c6d7f5a659 &&\
+#     python3 -m pip install -e .
 # RUN rm -r detectron2
 
 ENV TZ=Asia/Singapore
