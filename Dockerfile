@@ -60,6 +60,9 @@ RUN apt-get install -y python3-libnvinfer-dev uff-converter-tf
 # RUN apt update && apt install -y bazel
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata python3-tk
+ENV TZ=Asia/Singapore
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get clean && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/* && apt-get -y autoremove
 
 ### APT END ###
@@ -131,8 +134,6 @@ RUN cd /detectron2 &&\
     python3 -m pip install -e .
 # RUN rm -r detectron2
 
-ENV TZ=Asia/Singapore
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 
 # RUN git clone https://github.com/tensorflow/tensorflow.git 
