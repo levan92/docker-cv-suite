@@ -40,6 +40,9 @@ RUN apt-get install -y \
     python3-dev \
     python3-pip
 
+# dependencies for FFMPEG build
+RUN apt-get install -y libchromaprint1 libchromaprint-dev frei0r-plugins-dev gnutls-bin ladspa-sdk libavc1394-0 libavc1394-dev libiec61883-0 libiec61883-dev libass-dev libbluray-dev libbs2b-dev libcaca-dev libgme-dev libgsm1-dev libmysofa-dev libopenmpt-dev libopus-dev libpulse-dev librsvg2-dev librubberband-dev libshine-dev libsnappy-dev libsoxr-dev libspeex-dev libtwolame-dev libvpx-dev libwavpack-dev libwebp-dev libx265-dev libx264-dev libzmq3-dev libzvbi-dev libopenal-dev libomxil-bellagio-dev libcdio-dev libcdio-paranoia-dev libsdl2-dev libmp3lame-dev libssh-dev libtheora-dev libxvidcore-dev
+
 # INSTALL TENSORRT
 ARG TENSORRT=nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb
 # From Tensort installation instructions
@@ -79,8 +82,9 @@ RUN pip3 install --no-cache-dir python-vlc
 # INSTALL FFMPEG
 RUN git clone https://git.ffmpeg.org/ffmpeg.git &&\
     cd ffmpeg &&\
-    git checkout n3.4.7 &&\
-    ./configure --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 &&\
+    # git checkout n3.4.7 &&\
+    git checkout n3.4.8 &&\
+    ./configure --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags="-I/usr/local/cuda/include -I/usr/local/include" --extra-ldflags=-L/usr/local/cuda/lib64 --prefix=/usr --extra-version=0ubuntu0.2 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --enable-gpl --disable-stripping --enable-avresample --enable-avisynth --enable-ladspa --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libmp3lame --enable-libmysofa --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librubberband --enable-librsvg --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-omx --enable-openal --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared &&\
     make -j8 &&\
     make install &&\
     cd .. && rm -r ffmpeg
@@ -129,6 +133,7 @@ RUN cd coco/PythonAPI \
 
 # INSTALL DETECTRON2
 RUN git clone https://github.com/facebookresearch/detectron2.git /detectron2
+RUN pip3 install --no-cache-dir Pillow==6.2.0
 RUN cd /detectron2 &&\
     git checkout 185c27e4b4d2d4c68b5627b3765420c6d7f5a659 &&\
     python3 -m pip install -e .
