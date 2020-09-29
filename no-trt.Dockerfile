@@ -42,20 +42,6 @@ RUN apt-get install -y \
 # dependencies for FFMPEG build
 RUN apt-get install -y libchromaprint1 libchromaprint-dev frei0r-plugins-dev gnutls-bin ladspa-sdk libavc1394-0 libavc1394-dev libiec61883-0 libiec61883-dev libass-dev libbluray-dev libbs2b-dev libcaca-dev libgme-dev libgsm1-dev libmysofa-dev libopenmpt-dev libopus-dev libpulse-dev librsvg2-dev librubberband-dev libshine-dev libsnappy-dev libsoxr-dev libspeex-dev libtwolame-dev libvpx-dev libwavpack-dev libwebp-dev libx265-dev libx264-dev libzmq3-dev libzvbi-dev libopenal-dev libomxil-bellagio-dev libcdio-dev libcdio-paranoia-dev libsdl2-dev libmp3lame-dev libssh-dev libtheora-dev libxvidcore-dev
 
-# INSTALL TENSORRT
-ARG TENSORRT=nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb
-# From Tensort installation instructions
-ARG TENSORRT_KEY=/var/nv-tensorrt-repo-cuda10.0-trt7.0.0.11-ga-20191216/7fa2af80.pub
-# custom Tensorrt Installation
-ADD $TENSORRT /tmp
-# Rename the ML repo to something else so apt doesn't see it
-RUN mv /etc/apt/sources.list.d/nvidia-ml.list /etc/apt/sources.list.d/nvidia-ml.list.bkp && \
-    dpkg -i /tmp/$TENSORRT && \
-    apt-key add $TENSORRT_KEY && \
-    apt-get update && \
-    apt-get install -y tensorrt
-RUN apt-get install -y python3-libnvinfer-dev uff-converter-tf
-
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata python3-tk
 ENV TZ=Asia/Singapore
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -101,6 +87,7 @@ RUN pip3 install --no-cache-dir \
     tensorflow-gpu==1.13.1   \
     Keras==2.2.4
 RUN pip3 install --no-cache-dir efficientnet
+RUN pip3 install --no-cache-dir tensorboard==1.14
 
 # DETECTRON2 DEPENDENCY: PYCOCOTOOLS 
 RUN pip3 install --no-cache-dir cython
