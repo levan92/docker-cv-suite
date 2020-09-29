@@ -6,7 +6,7 @@
 - TensorRT 7.0 (.deb)
 - cv2 (opencv-python==4.4.0.44 from pypi)
 - PyTorch 1.4.0 (pypi package)
-- TensorFlow-gpu 1.13.1 (pypi package)
+- TensorFlow-gpu 1.15.4 (pypi package)
 - Keras 2.2.4 (pypi package)
 - Detectron2 (built from source)
 - VLC (built from source)
