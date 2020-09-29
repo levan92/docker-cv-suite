@@ -1,3 +1,4 @@
+#!/bin/bash
 export WORKSPACE=$HOME/Workspace
 export DATA=/media/dh/HDD/
 
