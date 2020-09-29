@@ -67,8 +67,12 @@ RUN apt-get clean && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/* && apt-get -y
 RUN pip3 install --no-cache-dir --upgrade pip 
 
 RUN pip3 install --no-cache-dir \
+    setuptools==41.0.0 \
     protobuf==3.13.0 \
-    numpy==1.15.4
+    numpy==1.15.4 \
+    cryptography==2.3
+
+RUN pip3 install --no-cache-dir --ignore-installed pyxdg==0.26
 
 RUN pip3 install --no-cache-dir jupyter==1.0.0
 RUN echo 'alias jup="jupyter notebook --allow-root --no-browser"' >> ~/.bashrc
@@ -82,7 +86,7 @@ RUN pip3 install --no-cache-dir \
 RUN pip3 install --no-cache-dir  \
     scipy==1.0.1 \
     matplotlib==3.3.2 \
-    Pillow==6.2.0 \
+    Pillow==7.1.2 \
     scikit-image==0.17.2 \
     scikit-learn==0.23.2 \
     pandas==1.1.2 \
@@ -97,13 +101,13 @@ RUN pip3 install --no-cache-dir \
     torchvision==0.5.0
 
 RUN pip3 install --no-cache-dir \
-    tensorflow==1.13.1   \
-    tensorflow-gpu==1.13.1   \
+    tensorflow==1.15.4   \
+    tensorflow-gpu==1.15.4   \
     Keras==2.2.4
 RUN pip3 install --no-cache-dir efficientnet
 
 # DETECTRON2 DEPENDENCY: PYCOCOTOOLS 
-RUN pip3 install --no-cache-dir cython
+RUN pip3 install --no-cache-dir cython==0.29.21
 RUN git clone https://github.com/pdollar/coco
 RUN cd coco/PythonAPI \
     && python3 setup.py build_ext install \
@@ -112,7 +116,7 @@ RUN cd coco/PythonAPI \
 
 # INSTALL DETECTRON2
 RUN git clone https://github.com/facebookresearch/detectron2.git /detectron2
-RUN pip3 install --no-cache-dir Pillow==6.2.0
+# RUN pip3 install --no-cache-dir Pillow==6.2.0
 RUN cd /detectron2 &&\
     git checkout 185c27e4b4d2d4c68b5627b3765420c6d7f5a659 &&\
     python3 -m pip install -e .
