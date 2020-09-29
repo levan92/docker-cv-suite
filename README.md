@@ -11,7 +11,7 @@
 - Detectron2 (built from source)
 - VLC (built from source)
 - FFmpeg (built from source with cuda support)
-- .. and many more (see Dockerfile for details)
+- .. and many more (see `Dockerfile`/`requirements.txt` for details)
 
 ## Installation
 
