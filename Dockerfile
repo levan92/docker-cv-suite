@@ -3,9 +3,7 @@ FROM nvcr.io/nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 ENV cwd="/home/"
 WORKDIR $cwd
 
-RUN apt-get -y update
-
-RUN apt-get install -y \
+RUN apt-get -y update && apt-get install -y \
     software-properties-common \
     build-essential \
     checkinstall \
@@ -28,7 +26,7 @@ RUN apt-get install -y \
     python3-pip
 
 # some image/media dependencies
-RUN apt-get install -y \
+RUN apt-get -y update && apt-get install -y \
     libjpeg8-dev \
     libpng-dev \
     libtiff5-dev \
@@ -40,7 +38,7 @@ RUN apt-get install -y \
     libxine2-dev
 
 # dependencies for FFMPEG build
-RUN apt-get install -y libchromaprint1 libchromaprint-dev frei0r-plugins-dev gnutls-bin ladspa-sdk libavc1394-0 libavc1394-dev libiec61883-0 libiec61883-dev libass-dev libbluray-dev libbs2b-dev libcaca-dev libgme-dev libgsm1-dev libmysofa-dev libopenmpt-dev libopus-dev libpulse-dev librsvg2-dev librubberband-dev libshine-dev libsnappy-dev libsoxr-dev libspeex-dev libtwolame-dev libvpx-dev libwavpack-dev libwebp-dev libx265-dev libx264-dev libzmq3-dev libzvbi-dev libopenal-dev libomxil-bellagio-dev libcdio-dev libcdio-paranoia-dev libsdl2-dev libmp3lame-dev libssh-dev libtheora-dev libxvidcore-dev
+RUN apt-get -y update && apt-get install -y libchromaprint1 libchromaprint-dev frei0r-plugins-dev gnutls-bin ladspa-sdk libavc1394-0 libavc1394-dev libiec61883-0 libiec61883-dev libass-dev libbluray-dev libbs2b-dev libcaca-dev libgme-dev libgsm1-dev libmysofa-dev libopenmpt-dev libopus-dev libpulse-dev librsvg2-dev librubberband-dev libshine-dev libsnappy-dev libsoxr-dev libspeex-dev libtwolame-dev libvpx-dev libwavpack-dev libwebp-dev libx265-dev libx264-dev libzmq3-dev libzvbi-dev libopenal-dev libomxil-bellagio-dev libcdio-dev libcdio-paranoia-dev libsdl2-dev libmp3lame-dev libssh-dev libtheora-dev libxvidcore-dev
 
 # INSTALL TENSORRT
 ARG TENSORRT=nv-tensorrt-repo-ubuntu1804-cuda10.0-trt7.0.0.11-ga-20191216_1-1_amd64.deb
@@ -96,9 +94,10 @@ RUN pip3 install --no-cache-dir  \
 
 RUN pip3 install --no-cache-dir opencv-python==4.4.0.44
 
-RUN pip3 install --no-cache-dir \
-    torch==1.4.0 \
-    torchvision==0.5.0
+# RUN pip3 install --no-cache-dir \
+#     torch==1.4.0 \
+#     torchvision==0.5.0
+RUN pip3 install --no-cache-dir torch==1.4.0+cu100 torchvision==0.5.0+cu100 -f https://download.pytorch.org/whl/torch_stable.html
 
 RUN pip3 install --no-cache-dir \
     tensorflow==1.15.4   \
