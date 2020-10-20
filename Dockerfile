@@ -144,3 +144,5 @@ RUN pip3 install --no-cache-dir ffmpeg-python
 RUN pip3 install --no-cache-dir \
     hikvisionapi==0.2.1 \
     simple-pid 
+
+ENV NVIDIA_DRIVER_CAPABILITIES=all 
