@@ -17,7 +17,12 @@
 
 ### Pull from dockerhub
 
-`docker pull levan92/cv-suite:latest`
+`docker pull <docker image name and tag>`
+
+List of docker image names and tags:
+- `levan92/cv-suite:latest`
+- `levan92/cv-suite:no-trt`
+- `levan92/opencv_gpu:rtx2070`
 
 ### Build from Dockerfile
 

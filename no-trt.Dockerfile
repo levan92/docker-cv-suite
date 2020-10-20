@@ -107,11 +107,13 @@ RUN cd /detectron2 &&\
     python3 -m pip install -e .
 # RUN rm -r detectron2
 
-# INSTALL VLC
+# Compiling NVIDIA Headers ("ffnvcodec")
 RUN git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
     cd nv-codec-headers &&\
     make install &&\
     cd .. && rm -r nv-codec-headers
+
+# INSTALL VLC
 RUN pip3 install --no-cache-dir python-vlc
 
 # INSTALL FFMPEG
@@ -128,3 +130,5 @@ RUN pip3 install --no-cache-dir ffmpeg-python
 RUN pip3 install --no-cache-dir \
     hikvisionapi==0.2.1 \
     simple-pid 
+
+ENV NVIDIA_DRIVER_CAPABILITIES=all 
