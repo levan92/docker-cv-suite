@@ -83,7 +83,7 @@ pycocotools==2.0
 pycparser==2.20
 pycrypto==2.6.1
 pydot==1.4.1
-Pygments==2.7.1
+Pygments==2.7.4
 pygobject==3.26.1
 pyparsing==2.4.7
 pyrsistent==0.17.3
