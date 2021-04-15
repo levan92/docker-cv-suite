@@ -56,7 +56,7 @@ RUN pip3 install --no-cache-dir \
     setuptools==41.0.0 \
     protobuf==3.13.0 \
     numpy==1.15.4 \
-    cryptography==2.3
+    cryptography==3.2
 
 RUN pip3 install --no-cache-dir --ignore-installed pyxdg==0.26
 
