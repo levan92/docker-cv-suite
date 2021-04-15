@@ -49,6 +49,7 @@ RUN apt-get clean && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/* && apt-get -y
 
 ### APT END ###
 
+
 RUN pip3 install --no-cache-dir --upgrade pip 
 
 RUN pip3 install --no-cache-dir \
@@ -101,6 +102,7 @@ RUN cd coco/PythonAPI \
     && rm -r coco
 
 # INSTALL DETECTRON2
+ENV TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5"
 RUN git clone https://github.com/facebookresearch/detectron2.git /detectron2
 # RUN pip3 install --no-cache-dir Pillow==6.2.0
 RUN cd /detectron2 &&\
