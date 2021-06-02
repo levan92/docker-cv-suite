@@ -126,7 +126,7 @@ tqdm==4.50.0
 traitlets==4.3.3
 uff==0.6.5
 unattended-upgrades==0.1
-urllib3==1.25.10
+urllib3==1.26.5
 wcwidth==0.2.5
 webencodings==0.5.1
 Werkzeug==1.0.1
