@@ -64,7 +64,7 @@ networkx==2.5
 notebook==6.1.4
 numba==0.51.2
 numexpr==2.7.1
-numpy==1.18.5
+numpy==1.22.0
 opencv-python==4.4.0.44
 opt-einsum==3.3.0
 packaging==20.4
